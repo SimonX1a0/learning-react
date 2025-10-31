@@ -1,7 +1,12 @@
-import UserGreeting from "./UserGreeting.jsx"
+import Component from "./Component.jsx"
+import React, {useState} from "react"
+
 function App() {
+
+
   return(
     <>
+      <Component></Component>
     </>
   );
 }
