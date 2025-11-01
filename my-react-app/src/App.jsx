@@ -1,12 +1,15 @@
-import Component from "./Component.jsx"
-import React, {useState} from "react"
+import StopWatch from "./stopwatch.jsx"
 
 function App() {
 
 
   return(
     <>
-      <Component></Component>
+      <StopWatch></StopWatch>
+      <StopWatch></StopWatch>
+      <StopWatch></StopWatch>
+      <StopWatch></StopWatch>
+      <StopWatch></StopWatch>
     </>
   );
 }
