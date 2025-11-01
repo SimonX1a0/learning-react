@@ -16,12 +16,12 @@ function Timer(){
     return(
         <div className="timer">
             <div>
-                <h1>{`00:00:00`}</h1>
+                <h1 className='time'>{`00:00:00`}</h1>
             </div>
             <div className='buttons'>
-                <button>Start</button>
-                <button>Stop</button>
-                <button>Reset</button>
+                <button className='start-button'>Start</button>
+                <button className='stop-button'>Stop</button>
+                <button className='reset-button'>Reset</button>
             </div>
         </div>
     );
