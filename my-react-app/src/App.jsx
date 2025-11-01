@@ -5,6 +5,9 @@ function App() {
   return(
     <>
       <Timer></Timer>
+      <Timer></Timer>
+      <Timer></Timer>
+      <Timer></Timer>
     </>
   );
 }
