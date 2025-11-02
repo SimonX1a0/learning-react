@@ -1,10 +1,11 @@
 import express from "express"
-import {getTime, getTimeById, updateTime} from "../controllers/timeControllers.js"
+import {getTimeById, start, stop, reset} from "../controllers/timeControllers.js"
 
 const router = express.Router();
 
-router.get("/", getTime);
 router.get("/:id", getTimeById);
-router.put("/:id", updateTime);
+router.put("/start/:id", start);
+router.put("/stop/:id", stop);
+router.put("/reset/:id", reset);
 
 export default router;

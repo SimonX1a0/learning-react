@@ -1,9 +1,15 @@
 import mongoose from "mongoose"
 
 const timeSchema = new mongoose.Schema({
-    currentElapse: {
+    startTime: {
         type: Number,
         required: false,
+        default: 0
+    },
+
+    currentElapse: {
+        type: Number,
+        require: false,
         default: 0
     },
 

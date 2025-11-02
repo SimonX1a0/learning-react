@@ -8,10 +8,12 @@ function Timer(){
     const startTime = useRef(0);
 
     async function getTime(){
-        const res = await fetch('http://localhost:5000/api/time');
+        const res = await fetch('http://localhost:5000/api/time/6906c6505906525f2a55e555');
         const data = await res.json();
         console.log(data);
         setTotalTime(data.totalElapse);
+        setIsRunning(data.isRunning);
+        setElapsedTime(Date.now() - data.startTime)
     };
 
     useEffect(() => {
@@ -32,23 +34,40 @@ function Timer(){
 
     })
 
-    function start(){
+    async function start(){
         setIsRunning(true);
+            const res = await fetch("http://localhost:5000/api/time/start/6906c6505906525f2a55e555", {
+                                method: "PUT",
+                                headers: { "Content-Type": "application/json"},
+                                body: JSON.stringify({startTime: startTime.current,
+                                                    isRunning: true
+                                })
+                            });
+            const data = await res.json();
+            console.log(data);
         startTime.current = Date.now() - elapsedTime;
     }
 
-    function stop(){
+    async function stop(){
         setIsRunning(false);
+
+        const res = await fetch("http://localhost:5000/api/time/stop/6906c6505906525f2a55e555", {
+                        method: "PUT",
+                        headers: { "Content-Type": "application/json"},
+                        body: JSON.stringify({isRunning: false})
+                    });
+        const data = await res.json();
+        console.log(data);
     }
 
     async function reset(){
         setIsRunning(false);
 
         try {
-            const res = await fetch("http://localhost:5000/api/time/6906c6505906525f2a55e555", {
+            const res = await fetch("http://localhost:5000/api/time/reset/6906c6505906525f2a55e555", {
                 method: "PUT",
                 headers: {"Content-Type": "application/json"},
-                body: JSON.stringify({ currentElapse: elapsedTime })
+                body: JSON.stringify({ isRunning: false,  currentElapse: elapsedTime})
             })
             const data = await res.json();
             console.log("Updated time:", data);
