@@ -8,14 +8,18 @@ function Timer(){
     const startTime = useRef(0);
 
     async function getTime(){
-        const res = fetch('http://localhost:5000/api/time');
-        const data = (await res).json();
+        const res = await fetch('http://localhost:5000/api/time');
+        const data = await res.json();
         console.log(data);
+        setTotalTime(data.totalElapse);
     };
 
-    getTime();
+    useEffect(() => {
+        getTime();
+    }, [])
 
     useEffect(()=>{
+
         if(isRunning){
             intervalId.current = setInterval(()=>{
                 setElapsedTime(Date.now() - startTime.current);
@@ -52,6 +56,7 @@ function Timer(){
             
         }
 
+        getTime();
         setElapsedTime(0);
     }
 
