@@ -11,7 +11,7 @@ export async function getTime(req, res){
 
 export const getTimeById = async (req, res) => {
     try {
-        const elapse = await Time.findById(req.params,id);
+        const elapse = await Time.findById(req.params.id);
         if(!elapse) return res.status(404).json({message: "elapse not found"});
         res.json(elapse);
     } catch (error) {
