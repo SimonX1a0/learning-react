@@ -1,10 +1,19 @@
 import {useState, useEffect, useRef} from 'react'
 
 function Timer(){
+    const [totalTime, setTotalTime] = useState(0);
     const [elapsedTime, setElapsedTime] = useState(0);
     const [isRunning, setIsRunning] = useState(false);
     const intervalId = useRef(null);
     const startTime = useRef(0);
+
+    async function getTime(){
+        const res = fetch('http://localhost:5000/api/time');
+        const data = (await res).json();
+        console.log(data);
+    };
+
+    getTime();
 
     useEffect(()=>{
         if(isRunning){
@@ -28,8 +37,21 @@ function Timer(){
         setIsRunning(false);
     }
 
-    function reset(){
+    async function reset(){
         setIsRunning(false);
+
+        try {
+            const res = await fetch("http://localhost:5000/api/time/6906c6505906525f2a55e555", {
+                method: "PUT",
+                headers: {"Content-Type": "application/json"},
+                body: JSON.stringify({ currentElapse: elapsedTime })
+            })
+            const data = await res.json();
+            console.log("Updated time:", data);
+        } catch (error) {
+            
+        }
+
         setElapsedTime(0);
     }
 
@@ -45,20 +67,26 @@ function Timer(){
 
 
     return(
-        <div className="timer">
-            <div>
+        <>
+            <div className="timer">
+                <div>
 
-                <h1 className='time'>{(hour === '00') ?`${minute}:${second}:${millisecond}` :
-                                                       `${hour}:${minute}:${second}`}</h1>
+                    <h1 className='time'>{(hour === '00') ?`${minute}:${second}:${millisecond}` :
+                                                        `${hour}:${minute}:${second}`}</h1>
+                </div>
+                <div className='buttons'>
+                    {isRunning ? <button onClick={stop} className='stop-button' id='stop'>Stop</button>:
+                                <button onClick={start} className='start-button' id='start'>Start</button>
+                                }
+                    <button onClick={reset} className='reset-button' id='reset'>Reset</button>
+                </div>
             </div>
-            <div className='buttons'>
-                {isRunning ? <button onClick={stop} className='stop-button'>Stop</button>:
-                             <button onClick={start} className='start-button'>Start</button>
-                             }
-                <button onClick={reset} className='reset-button'>Reset</button>
+            <div>
+                {totalTime}
             </div>
-        </div>
+        </>
     );
 }
+
 
 export default Timer;

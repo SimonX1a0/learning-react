@@ -12,6 +12,6 @@ const timeSchema = new mongoose.Schema({
     }
 });
 
-const Time = mongoose.model("Time", timeSchema);
+const Time = mongoose.model("Time", timeSchema, "times");
 
 export default Time;
