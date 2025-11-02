@@ -3,7 +3,7 @@ import mongoose from 'mongoose'
 
 const app = express();
 const PORT = 5000;
-const MONGO_URI = "mongodb://localhost:27017/myDatabase";
+const MONGO_URI = "mongodb://localhost:27017/Timer";
 
 try {
     mongoose.connect(MONGO_URI);
