@@ -13,7 +13,8 @@ function Timer(){
         console.log(data);
         setTotalTime(data.totalElapse);
         setIsRunning(data.isRunning);
-        setElapsedTime(Date.now() - data.startTime)
+        isRunning ? setElapsedTime(Date.now() - data.startTime) : 
+                    setElapsedTime(0);
     };
 
     useEffect(() => {
@@ -84,10 +85,20 @@ function Timer(){
     let second = Math.floor(elapsedTime / (1000) % 60);
     let millisecond = Math.floor(elapsedTime % (1000) / 10);
 
+    let hourTotal = Math.floor(totalTime / (1000*60*60));
+    let minuteTotal = Math.floor(totalTime / (1000*60) % 60);
+    let secondTotal = Math.floor(totalTime / (1000) % 60);
+    let millisecondTotal = Math.floor(totalTime % (1000) / 10);
+
     hour = String(hour).padStart(2, "0");
     minute = String(minute).padStart(2, "0");
     second = String(second).padStart(2, "0");
     millisecond = String(millisecond).padStart(2, "0");
+
+    hourTotal = String(hourTotal).padStart(2, "0");
+    minuteTotal = String(minuteTotal).padStart(2, "0");
+    secondTotal = String(secondTotal).padStart(2, "0");
+    millisecondTotal = String(millisecondTotal).padStart(2, "0");
 
 
     return(
@@ -106,7 +117,7 @@ function Timer(){
                 </div>
             </div>
             <div>
-                {totalTime}
+                {(hourTotal === '00') ? `${minuteTotal}:${secondTotal}:${millisecondTotal}` : `${hourTotal}:${minuteTotal}:${secondTotal}`}
             </div>
         </>
     );
